@@ -9,16 +9,12 @@ import org.testng.annotations.BeforeMethod;
 
 public class BaseTest {
 
-    // "protected" lets child classes such as AmazonSearchTest use this variable directly.
-    protected WebDriver driver;
+    protected static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
     ConfigReader config;
 
-
-    @BeforeMethod(alwaysRun = true)
+    @BeforeMethod
     public void setUp() {
         config = new ConfigReader();
-        // These are local variables. They are created inside setUp()
-        // and used only during this method call.
         String browser = config.getProperty("browser");
         String url = config.getProperty("url");
 
@@ -32,31 +28,31 @@ public class BaseTest {
         browser = browser.trim();
         url = url.trim();
 
-        // We decide which browser object should be created based on config file values.
-        if (browser.equalsIgnoreCase("Chrome")) {
-            driver = new ChromeDriver();
+        WebDriver wd;
+        if (browser.equalsIgnoreCase("chrome")) {
+            wd = new ChromeDriver();
         } else if (browser.equalsIgnoreCase("edge")) {
-            driver = new EdgeDriver();
+            wd = new EdgeDriver();
         } else if (browser.equalsIgnoreCase("firefox")) {
-            driver = new FirefoxDriver();
+            wd = new FirefoxDriver();
         } else {
             throw new IllegalStateException("Unsupported browser in config.properties: " + browser);
         }
 
-        driver.manage().window().maximize();
-        driver.get(url);
+        driver.set(wd);
+        driver.get().manage().window().maximize();
+        driver.get().get(url);
     }
-
-
-
-
-
 
     @AfterMethod
     public void tearDown() {
-        // Close the browser after every test method so tests stay independent.
-        if (driver != null) {
-            driver.quit();
+        if (driver.get() != null) {
+            driver.get().quit();
+            driver.remove();
         }
+    }
+
+    public WebDriver getDriver() {
+        return driver.get();
     }
 }

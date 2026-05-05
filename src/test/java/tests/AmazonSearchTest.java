@@ -1,8 +1,5 @@
 package tests;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.*;
 import pages.AmazonHomePage;
 import utils.BaseTest;
@@ -14,10 +11,10 @@ public class AmazonSearchTest extends BaseTest {
         AmazonHomePage homePage;
 
 
-        @Test(groups = "smoke")
+        @Test
         public void searchProductTest() throws InterruptedException {
             // We pass the shared driver from BaseTest into the page object constructor.
-            homePage=new AmazonHomePage(driver);
+            homePage=new AmazonHomePage(getDriver());
             homePage.enterSearchText("laptop");
             homePage.clickSearch();
 

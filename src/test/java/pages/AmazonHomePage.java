@@ -1,5 +1,7 @@
 package pages;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,7 +10,7 @@ import utils.WaitUtils;
 import java.util.Objects;
 
 public class AmazonHomePage {
-
+        private static final Logger log = LogManager.getLogger(AmazonHomePage.class);
         // Instance variables belong to the object, so every AmazonHomePage object
         // can keep its own driver and wait utility.
         WebDriver driver;
@@ -30,6 +32,7 @@ public class AmazonHomePage {
 
         // Methods below describe actions that can be performed on this page.
         public void enterSearchText(String text) {
+            log.info("Entering search text: {}", text);
             // "text" is a local parameter. It exists only while this method runs.
             // Wait once, then reuse the same visible element for clear() and sendKeys().
             WebElement searchInput = wait.waitForVisibility(searchBox);
@@ -38,10 +41,13 @@ public class AmazonHomePage {
         }
 
         public void clickSearch() {
+            log.info("Clicking search");
+
             wait.waitForClickable(searchButton).click();
         }
 
         public String getPageTitle() {
+            log.info("trying to get the title search");
             return driver.getTitle();
         }
     }

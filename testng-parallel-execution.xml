@@ -1,0 +1,22 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Parallel Execution Suite" parallel="classes" thread-count="2">
+    <!--
+      parallel="classes" means TestNG runs different test classes at the same time.
+      Here, thread-count="2" allows both parallel test classes below to run together.
+      This suite file is separate so the original testng.xml remains untouched.
+    -->
+    <listeners>
+        <!-- Dedicated listener for the isolated parallel-execution flow. -->
+        <listener class-name="utils.TestListenerParallelExecution"/>
+    </listeners>
+
+    <test name="Parallel Execution Tests">
+        <classes>
+            <!-- Class 1 runs on one thread/browser. -->
+            <class name="tests.AmazonSearchParallelExecutionTest"/>
+            <!-- Class 2 can run on another thread/browser at the same time. -->
+            <class name="tests.AmazonMobileParallelExecutionTest"/>
+        </classes>
+    </test>
+</suite>
