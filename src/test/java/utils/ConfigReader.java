@@ -6,26 +6,31 @@ import java.util.Properties;
 
 public class ConfigReader {
 
-    // This instance variable stores all key-value pairs from config.properties.
-    Properties prop;
+    private static final String CONFIG_PATH =
+            System.getProperty("user.dir") + "/src/test/resources/config.properties";
 
-    // Constructor loads the configuration file once when the object is created.
+    private final Properties prop = new Properties();
+
     public ConfigReader() {
-        try {
-            // "fis" is a local variable. It is needed only while reading the file.
-            FileInputStream fis = new FileInputStream(
-                    System.getProperty("user.dir") + "/src/test/resources/config.properties");
-
-            prop = new Properties();
+        try (FileInputStream fis = new FileInputStream(CONFIG_PATH)) {
             prop.load(fis);
-
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IllegalStateException("Unable to load config file: " + CONFIG_PATH, e);
         }
     }
 
     public String getProperty(String key) {
-        // "key" is a method parameter, for example "browser" or "url".
+        String systemValue = System.getProperty(key);
+        if (systemValue != null && !systemValue.trim().isEmpty()) {
+            return systemValue.trim();
+        }
+
+        String envKey = key.toUpperCase().replace('.', '_');
+        String envValue = System.getenv(envKey);
+        if (envValue != null && !envValue.trim().isEmpty()) {
+            return envValue.trim();
+        }
+
         return prop.getProperty(key);
     }
 }

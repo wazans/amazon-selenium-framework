@@ -1,5 +1,6 @@
 package utils;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -9,16 +10,13 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-
 public class BaseTest {
 
-    protected static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-    ConfigReader config;
+    protected static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+    private ConfigReader config;
 
     @BeforeMethod
     public void setUp() {
-
         config = new ConfigReader();
         String browser = config.getProperty("browser");
         String url = config.getProperty("url");
@@ -34,50 +32,20 @@ public class BaseTest {
         url = url.trim();
 
         WebDriver wd;
-
-        // 🔥 CHROME (BEST FOR JENKINS)
         if (browser.equalsIgnoreCase("chrome")) {
-
             WebDriverManager.chromedriver().setup();
-
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("--headless=new"); // CI mandatory
-            options.addArguments("--disable-gpu");
-            options.addArguments("--window-size=1920,1080");
-            options.addArguments("--no-sandbox");
-            options.addArguments("--disable-dev-shm-usage");
-            options.addArguments("--remote-allow-origins=*");
-
-            wd = new ChromeDriver(options);
-        }
-
-        // ⚠️ EDGE (less stable in CI)
-        else if (browser.equalsIgnoreCase("edge")) {
-
+            wd = new ChromeDriver(createChromeOptions());
+        } else if (browser.equalsIgnoreCase("edge")) {
             WebDriverManager.edgedriver().setup();
-
-            EdgeOptions options = new EdgeOptions();
-            options.addArguments("--headless=new");
-            options.addArguments("--disable-gpu");
-            options.addArguments("--window-size=1920,1080");
-
-            wd = new EdgeDriver(options);
-
-        }
-
-        // ⚠️ FIREFOX
-        else if (browser.equalsIgnoreCase("firefox")) {
-
+            wd = new EdgeDriver(createEdgeOptions());
+        } else if (browser.equalsIgnoreCase("firefox")) {
             WebDriverManager.firefoxdriver().setup();
             wd = new FirefoxDriver();
-        }
-
-        else {
+        } else {
             throw new IllegalStateException("Unsupported browser in config.properties: " + browser);
         }
 
         driver.set(wd);
-        driver.get().manage().window().maximize();
         driver.get().get(url);
     }
 
@@ -93,4 +61,25 @@ public class BaseTest {
         return driver.get();
     }
 
+    private ChromeOptions createChromeOptions() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--remote-allow-origins=*");
+        return options;
+    }
+
+    private EdgeOptions createEdgeOptions() {
+        EdgeOptions options = new EdgeOptions();
+        options.addArguments("--headless=new");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--remote-allow-origins=*");
+        return options;
+    }
 }
