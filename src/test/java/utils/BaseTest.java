@@ -62,6 +62,7 @@ public class BaseTest {
             options.addArguments("--window-size=1920,1080");
 
             wd = new EdgeDriver(options);
+
         }
 
         // ⚠️ FIREFOX
@@ -91,4 +92,5 @@ public class BaseTest {
     public WebDriver getDriver() {
         return driver.get();
     }
+
 }

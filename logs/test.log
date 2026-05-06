@@ -227,3 +227,33 @@
 2026-05-05 23:54:01 INFO  pages.AmazonHomePage - Clicking search
 2026-05-05 23:54:03 INFO  pages.AmazonResultsPage - verify  if the landing page is displayed 
 2026-05-05 23:54:03 INFO  utils.TestListener - PASSED: searchProductWithExcelData
+2026-05-06 20:43:37 INFO  utils.TestListener - STARTED: searchProductWithExcelData
+2026-05-06 20:43:37 INFO  pages.AmazonHomePage - Entering search text: wheel
+2026-05-06 20:43:39 INFO  pages.AmazonHomePage - Clicking search
+2026-05-06 20:43:40 INFO  pages.AmazonResultsPage - verify  if the landing page is displayed 
+2026-05-06 20:43:41 INFO  utils.TestListener - PASSED: searchProductWithExcelData
+2026-05-06 20:43:46 INFO  utils.TestListener - STARTED: searchProductWithExcelData
+2026-05-06 20:43:46 INFO  pages.AmazonHomePage - Entering search text: books
+2026-05-06 20:43:48 INFO  pages.AmazonHomePage - Clicking search
+2026-05-06 20:43:49 INFO  pages.AmazonResultsPage - verify  if the landing page is displayed 
+2026-05-06 20:43:50 INFO  utils.TestListener - PASSED: searchProductWithExcelData
+2026-05-06 20:43:54 INFO  utils.TestListener - STARTED: searchProductWithExcelData
+2026-05-06 20:43:54 INFO  pages.AmazonHomePage - Entering search text: train
+2026-05-06 20:43:56 INFO  pages.AmazonHomePage - Clicking search
+2026-05-06 20:43:58 INFO  pages.AmazonResultsPage - verify  if the landing page is displayed 
+2026-05-06 20:43:58 INFO  utils.TestListener - PASSED: searchProductWithExcelData
+2026-05-06 20:44:43 INFO  utils.TestListener - STARTED: searchProductWithExcelData
+2026-05-06 20:44:43 INFO  pages.AmazonHomePage - Entering search text: wheel
+2026-05-06 20:44:44 INFO  pages.AmazonHomePage - Clicking search
+2026-05-06 20:44:46 INFO  pages.AmazonResultsPage - verify  if the landing page is displayed 
+2026-05-06 20:44:46 INFO  utils.TestListener - PASSED: searchProductWithExcelData
+2026-05-06 20:44:52 INFO  utils.TestListener - STARTED: searchProductWithExcelData
+2026-05-06 20:44:52 INFO  pages.AmazonHomePage - Entering search text: books
+2026-05-06 20:44:53 INFO  pages.AmazonHomePage - Clicking search
+2026-05-06 20:44:55 INFO  pages.AmazonResultsPage - verify  if the landing page is displayed 
+2026-05-06 20:44:56 INFO  utils.TestListener - PASSED: searchProductWithExcelData
+2026-05-06 20:45:01 INFO  utils.TestListener - STARTED: searchProductWithExcelData
+2026-05-06 20:45:01 INFO  pages.AmazonHomePage - Entering search text: train
+2026-05-06 20:45:04 INFO  pages.AmazonHomePage - Clicking search
+2026-05-06 20:45:07 INFO  pages.AmazonResultsPage - verify  if the landing page is displayed 
+2026-05-06 20:45:08 INFO  utils.TestListener - PASSED: searchProductWithExcelData
