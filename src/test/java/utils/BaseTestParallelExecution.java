@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -38,7 +39,9 @@ public class BaseTestParallelExecution {
         if (browser.equalsIgnoreCase("chrome")) {
             webDriver = new ChromeDriver();
         } else if (browser.equalsIgnoreCase("edge")) {
-            webDriver = new EdgeDriver();
+            EdgeOptions edgeOptions = new EdgeOptions();
+            edgeOptions.addArguments("--headless=new");
+            webDriver = new EdgeDriver(edgeOptions);
         } else if (browser.equalsIgnoreCase("firefox")) {
             webDriver = new FirefoxDriver();
         } else {
