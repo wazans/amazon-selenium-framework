@@ -2,11 +2,14 @@ package utils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseTest {
 
@@ -15,6 +18,7 @@ public class BaseTest {
 
     @BeforeMethod
     public void setUp() {
+
         config = new ConfigReader();
         String browser = config.getProperty("browser");
         String url = config.getProperty("url");
@@ -30,15 +34,44 @@ public class BaseTest {
         url = url.trim();
 
         WebDriver wd;
+
+        // 🔥 CHROME (BEST FOR JENKINS)
         if (browser.equalsIgnoreCase("chrome")) {
-            wd = new ChromeDriver();
-        } else if (browser.equalsIgnoreCase("edge")) {
-            EdgeOptions edgeOptions = new EdgeOptions();
-            edgeOptions.addArguments("--headless=new");
-            wd = new EdgeDriver(edgeOptions);
-        } else if (browser.equalsIgnoreCase("firefox")) {
+
+            WebDriverManager.chromedriver().setup();
+
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--headless=new"); // CI mandatory
+            options.addArguments("--disable-gpu");
+            options.addArguments("--window-size=1920,1080");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--remote-allow-origins=*");
+
+            wd = new ChromeDriver(options);
+        }
+
+        // ⚠️ EDGE (less stable in CI)
+        else if (browser.equalsIgnoreCase("edge")) {
+
+            WebDriverManager.edgedriver().setup();
+
+            EdgeOptions options = new EdgeOptions();
+            options.addArguments("--headless=new");
+            options.addArguments("--disable-gpu");
+            options.addArguments("--window-size=1920,1080");
+
+            wd = new EdgeDriver(options);
+        }
+
+        // ⚠️ FIREFOX
+        else if (browser.equalsIgnoreCase("firefox")) {
+
+            WebDriverManager.firefoxdriver().setup();
             wd = new FirefoxDriver();
-        } else {
+        }
+
+        else {
             throw new IllegalStateException("Unsupported browser in config.properties: " + browser);
         }
 
