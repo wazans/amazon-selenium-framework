@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -40,7 +41,7 @@ public class BaseTest {
             wd = new EdgeDriver(createEdgeOptions());
         } else if (browser.equalsIgnoreCase("firefox")) {
             WebDriverManager.firefoxdriver().setup();
-            wd = new FirefoxDriver();
+            wd = new FirefoxDriver(createFirefoxOptions());
         } else {
             throw new IllegalStateException("Unsupported browser in config.properties: " + browser);
         }
@@ -73,6 +74,16 @@ public class BaseTest {
     }
 
     private EdgeOptions createEdgeOptions() {
+        EdgeOptions options = new EdgeOptions();
+        options.addArguments("--headless=new");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--remote-allow-origins=*");
+        return options;
+    }
+    private FirefoxOptions createFirefoxOptions() {
         EdgeOptions options = new EdgeOptions();
         options.addArguments("--headless=new");
         options.addArguments("--disable-gpu");
