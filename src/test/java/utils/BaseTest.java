@@ -36,7 +36,7 @@ public class BaseTest {
             //WebDriverManager.chromedriver().setup();
             wd = new ChromeDriver(createChromeOptions());
         } else if (browser.equalsIgnoreCase("edge")) {
-            //WebDriverManager.edgedriver().setup();
+            WebDriverManager.edgedriver().setup();
             wd = new EdgeDriver(createEdgeOptions());
         } else if (browser.equalsIgnoreCase("firefox")) {
             WebDriverManager.firefoxdriver().setup();
