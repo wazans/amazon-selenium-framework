@@ -39,7 +39,7 @@ public class BaseTest {
             //WebDriverManager.edgedriver().setup();
             wd = new EdgeDriver(createEdgeOptions());
         } else if (browser.equalsIgnoreCase("firefox")) {
-            //WebDriverManager.firefoxdriver().setup();
+            WebDriverManager.firefoxdriver().setup();
             wd = new FirefoxDriver();
         } else {
             throw new IllegalStateException("Unsupported browser in config.properties: " + browser);
