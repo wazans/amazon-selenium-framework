@@ -33,13 +33,13 @@ public class BaseTest {
 
         WebDriver wd;
         if (browser.equalsIgnoreCase("chrome")) {
-            WebDriverManager.chromedriver().setup();
+            //WebDriverManager.chromedriver().setup();
             wd = new ChromeDriver(createChromeOptions());
         } else if (browser.equalsIgnoreCase("edge")) {
-            WebDriverManager.edgedriver().setup();
+            //WebDriverManager.edgedriver().setup();
             wd = new EdgeDriver(createEdgeOptions());
         } else if (browser.equalsIgnoreCase("firefox")) {
-            WebDriverManager.firefoxdriver().setup();
+            //WebDriverManager.firefoxdriver().setup();
             wd = new FirefoxDriver();
         } else {
             throw new IllegalStateException("Unsupported browser in config.properties: " + browser);
