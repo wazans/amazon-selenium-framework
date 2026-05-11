@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import utils.WaitUtils;
 
 import java.util.Objects;
@@ -25,10 +26,14 @@ public class AmazonHomePage {
             // Reuse the same browser driver inside WaitUtils.
             this.wait = new WaitUtils(this.driver);
         }
+        // 1 WebElement searchBox= driver.findElement(By.id("twotabsearchtextbox"));
 
-        // Locator variables store how Selenium should find elements.
+
+        // 2. Locator variables store how Selenium should find elements.
         private By searchBox = By.id("twotabsearchtextbox");
         private By searchButton = By.id("nav-search-submit-button");
+
+
 
         // Methods below describe actions that can be performed on this page.
         public void enterSearchText(String text) {
